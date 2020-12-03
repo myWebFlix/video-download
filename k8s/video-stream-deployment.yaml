@@ -13,7 +13,7 @@ spec:
         app: video-stream
     spec:
       containers:
-        - image: webflix/video-stream:2020-12-03-09-17-22
+        - image: webflix/video-stream:2020-12-03-10-16-08
           name: video-stream
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
@@ -39,7 +39,7 @@ spec:
             httpGet:
               path: /health/live
               port: server
-            initialDelaySeconds: 20
+            initialDelaySeconds: 40
             periodSeconds: 3
           readinessProbe:
             httpGet:
