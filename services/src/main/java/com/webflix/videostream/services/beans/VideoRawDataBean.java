@@ -22,6 +22,12 @@ public class VideoRawDataBean {
 		return query.getResultList();
 	}
 
+	public List<VideoRawDataEntity> getVideoRawData(Integer videoId){
+		return em.createQuery("SELECT vrd FROM VideoRawDataEntity vrd WHERE vrd.video_id = :video_id", VideoRawDataEntity.class)
+				.setParameter("video_id", videoId)
+				.getResultList();
+	}
+
 	// Transactions
 
 	private void beginTx() {

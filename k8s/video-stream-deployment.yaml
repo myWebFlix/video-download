@@ -13,7 +13,7 @@ spec:
         app: video-stream
     spec:
       containers:
-        - image: webflix/video-stream:2020-12-03-10-16-08
+        - image: webflix/video-stream:2020-12-04-01-01-23
           name: video-stream
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
@@ -55,7 +55,7 @@ kind: Service
 metadata:
   name: video-stream
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       protocol: TCP
