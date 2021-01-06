@@ -29,11 +29,24 @@ public class StreamResource {
 
 	@GET
 	@Path("/{videoId}")
-	public Response getStream(@PathParam("videoId") Integer videoId) {
+	public Response getStream(@HeaderParam("ID-Token") String idTokenString,
+							  @PathParam("videoId") Integer videoId) {
 
-		List<VideoRawDataEntity> vrde = videoRawDataBean.getVideoRawData(videoId);
+		String userId = videoRawDataBean.manageUser(idTokenString);
 
-		return Response.status(Response.Status.OK).entity(vrde).build();
+		if (userId != null) {
+
+			System.out.println("User ID: " + userId);
+
+			List<VideoRawDataEntity> vrde = videoRawDataBean.getVideoRawData(videoId);
+
+			return Response.status(Response.Status.OK).entity(vrde).build();
+
+		} else {
+
+			return Response.status(Response.Status.UNAUTHORIZED).build();
+
+		}
 	}
 
 }

@@ -13,7 +13,7 @@ spec:
         app: video-stream
     spec:
       containers:
-        - image: webflix/video-stream:2020-12-04-01-01-23
+        - image: webflix/video-stream:2021-01-01-08-42-38
           name: video-stream
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
