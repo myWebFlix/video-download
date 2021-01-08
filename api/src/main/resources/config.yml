@@ -26,14 +26,20 @@ kumuluzee:
 #      etcd-health-check:
 #        type: liveness
 #        connection-url: http://localhost:2379/health
-#  metrics:
-#    web-instrumentation:
-#      - name: stream-endpoint
-#        url-pattern: /v1/*
-#        status-codes: "200, 500"
-#    servlet:
-#      enabled: true
-#      mapping: /metrics
+  metrics:
+    web-instrumentation:
+      - name: stream-endpoint
+        url-pattern: /v1/*
+        status-codes: "200, 500"
+    number_of_views_counter:
+      - name: number-of-views-counter
+    video_watches_histogram:
+      - name: video-watches-histogram
+    number_of_streams_per_second:
+      - name: number-of-streams-per-second
+    servlet:
+      enabled: true
+      mapping: /metrics
 #rest-config:
 #  maintenance-mode: false
 #  broken: false

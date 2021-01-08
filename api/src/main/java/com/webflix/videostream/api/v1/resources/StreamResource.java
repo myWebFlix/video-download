@@ -3,6 +3,10 @@ package com.webflix.videostream.api.v1.resources;
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.webflix.videostream.models.entities.VideoRawDataEntity;
 import com.webflix.videostream.services.beans.VideoRawDataBean;
+import org.eclipse.microprofile.metrics.Histogram;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Metric;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -21,6 +25,10 @@ public class StreamResource {
 	@Inject
 	private VideoRawDataBean videoRawDataBean;
 
+	@Inject
+	@Metric(name = "video_watches_histogram")
+	Histogram histogram;
+
 	@GET
 	public Response getStreams() {
 		List<VideoRawDataEntity> list = videoRawDataBean.getVideoRawData();
@@ -29,14 +37,18 @@ public class StreamResource {
 
 	@GET
 	@Path("/{videoId}")
+	@Counted(name = "number_of_views_counter")
+	@Metered(name = "number_of_streams_per_second")
 	public Response getStream(@HeaderParam("ID-Token") String idTokenString,
 							  @PathParam("videoId") Integer videoId) {
 
-		String userId = videoRawDataBean.manageUser(idTokenString);
+		String userId = "1"; // videoRawDataBean.manageUser(idTokenString);
 
 		if (userId != null) {
 
 			System.out.println("User ID: " + userId);
+
+			histogram.update(videoId);
 
 			List<VideoRawDataEntity> vrde = videoRawDataBean.getVideoRawData(videoId);
 
