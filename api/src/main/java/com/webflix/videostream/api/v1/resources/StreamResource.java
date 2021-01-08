@@ -42,7 +42,7 @@ public class StreamResource {
 	public Response getStream(@HeaderParam("ID-Token") String idTokenString,
 							  @PathParam("videoId") Integer videoId) {
 
-		String userId = "1"; // videoRawDataBean.manageUser(idTokenString);
+		String userId = videoRawDataBean.manageUser(idTokenString);
 
 		if (userId != null) {
 
